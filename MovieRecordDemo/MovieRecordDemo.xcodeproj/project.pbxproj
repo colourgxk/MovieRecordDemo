@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		166FEB5F24F36E6C004A17CD /* MoviePlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 166FEB5E24F36E6C004A17CD /* MoviePlayController.m */; };
+		167283AD24F28A8000FEAE78 /* SandBoxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 167283AC24F28A8000FEAE78 /* SandBoxManager.m */; };
+		1674C5AE24EFA591009AFE52 /* RecordProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1674C5AD24EFA591009AFE52 /* RecordProgressView.m */; };
 		16CC75DF24ED0DDA00B62049 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CC75DE24ED0DDA00B62049 /* AppDelegate.m */; };
 		16CC75E224ED0DDA00B62049 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CC75E124ED0DDA00B62049 /* SceneDelegate.m */; };
 		16CC75E524ED0DDA00B62049 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CC75E424ED0DDA00B62049 /* ViewController.m */; };
@@ -20,6 +23,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		166FEB5D24F36E6C004A17CD /* MoviePlayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePlayController.h; sourceTree = "<group>"; };
+		166FEB5E24F36E6C004A17CD /* MoviePlayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePlayController.m; sourceTree = "<group>"; };
+		167283AB24F28A8000FEAE78 /* SandBoxManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandBoxManager.h; sourceTree = "<group>"; };
+		167283AC24F28A8000FEAE78 /* SandBoxManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandBoxManager.m; sourceTree = "<group>"; };
+		1674C5AC24EFA591009AFE52 /* RecordProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordProgressView.h; sourceTree = "<group>"; };
+		1674C5AD24EFA591009AFE52 /* RecordProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordProgressView.m; sourceTree = "<group>"; };
 		16CC75DA24ED0DDA00B62049 /* MovieRecordDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieRecordDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16CC75DD24ED0DDA00B62049 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16CC75DE24ED0DDA00B62049 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -82,6 +91,12 @@
 				16CC760024ED285C00B62049 /* MovieRecordModel.m */,
 				16CC760224ED5EB300B62049 /* MovieRecordController.h */,
 				16CC760324ED5EB300B62049 /* MovieRecordController.m */,
+				1674C5AC24EFA591009AFE52 /* RecordProgressView.h */,
+				1674C5AD24EFA591009AFE52 /* RecordProgressView.m */,
+				167283AB24F28A8000FEAE78 /* SandBoxManager.h */,
+				167283AC24F28A8000FEAE78 /* SandBoxManager.m */,
+				166FEB5D24F36E6C004A17CD /* MoviePlayController.h */,
+				166FEB5E24F36E6C004A17CD /* MoviePlayController.m */,
 				16CC75E624ED0DDA00B62049 /* Main.storyboard */,
 				16CC75E924ED0DDC00B62049 /* Assets.xcassets */,
 				16CC75EB24ED0DDC00B62049 /* LaunchScreen.storyboard */,
@@ -163,10 +178,13 @@
 			files = (
 				16CC75E524ED0DDA00B62049 /* ViewController.m in Sources */,
 				16CC760124ED285C00B62049 /* MovieRecordModel.m in Sources */,
+				166FEB5F24F36E6C004A17CD /* MoviePlayController.m in Sources */,
 				16CC75DF24ED0DDA00B62049 /* AppDelegate.m in Sources */,
 				16CC760424ED5EB300B62049 /* MovieRecordController.m in Sources */,
 				16CC75F024ED0DDC00B62049 /* main.m in Sources */,
 				16CC75F824ED0E5800B62049 /* MovieRecordView.m in Sources */,
+				1674C5AE24EFA591009AFE52 /* RecordProgressView.m in Sources */,
+				167283AD24F28A8000FEAE78 /* SandBoxManager.m in Sources */,
 				16CC75E224ED0DDA00B62049 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +326,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Q64DQQL34;
 				INFOPLIST_FILE = MovieRecordDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,7 +344,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Q64DQQL34;
 				INFOPLIST_FILE = MovieRecordDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

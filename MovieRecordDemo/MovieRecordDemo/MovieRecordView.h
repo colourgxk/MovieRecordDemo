@@ -19,12 +19,25 @@
 
 
 @interface MovieRecordView : UIView
-
+@property (nonatomic, strong, readonly) MovieRecordModel *movieRecordModel;
 @property (nonatomic, weak) id <MovieRecordViewDelegate> delegate;
 
 - (instancetype)initWithMovieRecordViewType;
 - (void)reset;
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

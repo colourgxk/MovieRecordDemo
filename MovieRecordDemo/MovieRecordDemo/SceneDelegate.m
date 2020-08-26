@@ -7,6 +7,7 @@
 //
 
 #import "SceneDelegate.h"
+#import "MovieRecordController.h"
 
 @interface SceneDelegate ()
 
@@ -19,6 +20,14 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    UIWindowScene *windowScene = (UIWindowScene *)scene;
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.windowScene = windowScene;
+    MovieRecordController *viewController = [[MovieRecordController alloc] init];
+    //添加根视图控制器，最先显示
+    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
 }
 
 

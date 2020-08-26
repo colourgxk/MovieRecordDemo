@@ -8,48 +8,53 @@
 
 #import "MovieRecordController.h"
 #import "MovieRecordView.h"
+#import "MoviePlayController.h"
 
-// #import "FMVideoPlayController.h"
 @interface MovieRecordController ()<MovieRecordViewDelegate>
-@property (nonatomic, strong) MovieRecordView *videoView;
+@property (nonatomic, strong) MovieRecordView *movieRecordView;
 @end
 
 @implementation MovieRecordController
 
-- (BOOL)prefersStatusBarHidden{
-    return YES;
-}
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
+
 #pragma mark - 控制器视图方法
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
     self.view.backgroundColor = [UIColor blackColor];
-    _videoView = [[MovieRecordView alloc] initWithFMVideoViewType:TypeFullScreen];
-    _videoView.delegate = self;
-    [self.view addSubview:_videoView];
-    
-    
+    _movieRecordView = [[MovieRecordView alloc] initWithMovieRecordViewType];
+    _movieRecordView.delegate = self;
+    [self.view addSubview:_movieRecordView];
 }
-//TODO
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (_videoView.movieRecordModel.recordState == MovieRecordStateFinish) {
-        [_videoView reset];
+    if (_movieRecordView.movieRecordModel.recordState == MovieRecordStateFinish) {
+        [_movieRecordView reset];
     }
-    
 }
-#pragma mark - FMFVideoViewDelegate
+
+#pragma mark - MovieRecordViewDelegate
 - (void)dismissVC
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    
 }
+
 
 - (void)recordFinishWithvideoUrl:(NSURL *)videoUrl
 {
-    FMVideoPlayController *playVC = [[FMVideoPlayController alloc] init];
-    playVC.videoUrl =  videoUrl;
-    [self.navigationController pushViewController:playVC animated:YES];
+    MoviePlayController *playController = [[MoviePlayController alloc] init];
+    playController.videoUrl =  videoUrl;
+
+//    todo navigationController
+    [self.navigationController pushViewController:playController animated:YES];
 }
 
 @end

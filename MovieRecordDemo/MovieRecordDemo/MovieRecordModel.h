@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 //录制状态
 typedef NS_ENUM(NSInteger, MovieRecordState) {
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSInteger, MovieRecordState) {
 
 - (void)turnCameraAction;
 - (void)startRecord;
+- (void)pauseRecord;
 - (void)stopRecord;
 - (void)reset;
 
