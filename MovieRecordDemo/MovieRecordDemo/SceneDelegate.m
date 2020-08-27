@@ -25,7 +25,11 @@
     self.window.windowScene = windowScene;
     MovieRecordController *viewController = [[MovieRecordController alloc] init];
     //添加根视图控制器，最先显示
-    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    
+    UIViewController *aa = [UIViewController new];
+    aa.view.backgroundColor = [UIColor redColor];
+    
+    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:aa];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
 }

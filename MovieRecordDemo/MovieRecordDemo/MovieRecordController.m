@@ -16,10 +16,10 @@
 
 @implementation MovieRecordController
 
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 
 #pragma mark - 控制器视图方法
 - (void)viewDidLoad
@@ -44,7 +44,6 @@
 - (void)dismissVC
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 

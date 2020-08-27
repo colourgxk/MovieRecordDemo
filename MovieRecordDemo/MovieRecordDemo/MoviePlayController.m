@@ -53,11 +53,7 @@
     
     //todo 添加通知->发送通知->移除通知->响应通知
 
-//    媒体播放完成或用户手动退出，具体完成原因可以通过通知userInfo中的key为MPMoviePlayerPlaybackDidFinishReasonUserInfoKey的对象获取
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoFinished:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:self.videoPlayer];
+                                           
 }
 
 - (void)buildNavUI
@@ -85,16 +81,8 @@
     
 }
 
-#pragma mark - notification
+
 #pragma state
-
--(void)videoFinished:(NSNotification*)aNotification{
-    int value = [[aNotification.userInfo valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
-    if (value == MPMovieFinishReasonPlaybackEnded) {   // 视频播放结束
-      
-    }
-}
-
 
 - (void)dismissAction
 {

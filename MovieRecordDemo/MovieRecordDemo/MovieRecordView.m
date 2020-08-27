@@ -21,8 +21,6 @@
 @property (nonatomic, strong) UIButton *completeBtn;
 @property (nonatomic, strong) UIView *buttomCenterView;
 @property (nonatomic, strong) UIButton *recordBtn;
-@property (nonatomic, strong) UIView *topView;
-@property (nonatomic, strong) UIButton *cancelBtn;
 
 
 @property (nonatomic, strong) RecordProgressView *progressView;
@@ -49,53 +47,45 @@
     
     self.movieRecordModel = [[MovieRecordModel alloc] initWithViewTypeAndSuperView:self];
     self.movieRecordModel.delegate = self;
-    
-    self.topView = [[UIView alloc] init];
-    self.topView.frame = CGRectMake(0, 0, MRScreenWidth, 44);
-    [self addSubview: self.topView];
+
     
     self.buttomLeftView = [[UIView alloc] init];
-    self.buttomLeftView.frame = CGRectMake(0, MRScreenHeight-44, MRScreenWidth/3, 44);
+    self.buttomLeftView.frame = CGRectMake(0, MRScreenHeight-77, MRScreenWidth/3, 44);
     [self addSubview: self.buttomLeftView];
     
     self.buttomCenterView = [[UIView alloc] init];
-    self.buttomCenterView.frame = CGRectMake(MRScreenWidth/3, MRScreenHeight-44, MRScreenWidth/3, 44);
+    self.buttomCenterView.frame = CGRectMake(MRScreenWidth/3, MRScreenHeight-77, MRScreenWidth/3, 44);
     [self addSubview: self.buttomCenterView];
     
     
     self.buttomRightView = [[UIView alloc] init];
-    self.buttomRightView.frame = CGRectMake(2*MRScreenWidth/3, MRScreenHeight-44, MRScreenWidth/3, 44);
+    self.buttomRightView.frame = CGRectMake(2*MRScreenWidth/3, MRScreenHeight-77, MRScreenWidth/3, 44);
     [self addSubview: self.buttomRightView];
-    
-    self.cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.cancelBtn.frame = CGRectMake(15, 14, 16, 16);
-    [self.cancelBtn setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
-    [self.cancelBtn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
-    [self.cancelBtn sizeToFit];
-    [self.topView addSubview: self.cancelBtn];
     
     
     self.turnCamera = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.turnCamera.frame = CGRectMake(MRScreenWidth - 28, MRScreenHeight - 38, 28, 22);
+    self.turnCamera.frame = CGRectMake(10, 0, 44, 44);
     [self.turnCamera setImage:[UIImage imageNamed:@"turncamera"] forState:UIControlStateNormal];
     [self.turnCamera addTarget:self action:@selector(turnCameraAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.turnCamera sizeToFit];
     [self.buttomLeftView addSubview: self.turnCamera];
     
-    
+  
     self.recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.recordBtn.frame = CGRectMake(5, 5, 52, 52);
-    [self.recordBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
     [self.recordBtn addTarget:self action:@selector(startRecord) forControlEvents:UIControlEventTouchUpInside];
-    [self.recordBtn sizeToFit];
+    self.recordBtn.frame = CGRectMake(10, 0, 50, 50);
+    self.recordBtn.backgroundColor = [UIColor redColor];
+    self.recordBtn.layer.cornerRadius = 26;
+    self.recordBtn.layer.masksToBounds = YES;
     [self.buttomCenterView addSubview: self.recordBtn];
     
     
     self.completeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.completeBtn.frame = CGRectMake(MRScreenWidth - 60 - 28, MRScreenHeight -38, 28, 22);
+    self.completeBtn.frame = CGRectMake(10, 0, 44, 44);
     [self.completeBtn setTitle:@"完成" forState:UIControlStateNormal];
     [self.completeBtn addTarget:self action:@selector(completeAction) forControlEvents:UIControlEventTouchUpInside];
     [self.buttomRightView addSubview: self.completeBtn];
+    self.buttomRightView.hidden=YES;
+    
     
     //进度条
     self.progressView = [[RecordProgressView alloc] initWithFrame:CGRectMake(1, MRScreenHeight - 28, MRScreenWidth-2, 28)];
@@ -114,7 +104,6 @@
 
 - (void)updateViewWithInit
 {
-    self.topView.hidden = YES;
     self.buttomLeftView.hidden=NO;
     self.buttomCenterView.hidden=NO;
     self.buttomRightView.hidden=YES;
@@ -123,7 +112,6 @@
 
 - (void)updateViewWithRecording
 {
-    self.topView.hidden = YES;
     self.buttomLeftView.hidden=YES;
     self.buttomCenterView.hidden=NO;
     self.buttomRightView.hidden=NO;
@@ -132,39 +120,49 @@
 
 - (void)updateViewWithPause
 {
-    self.topView.hidden = YES;
     self.buttomLeftView.hidden=YES;
     self.buttomCenterView.hidden=NO;
     self.buttomRightView.hidden=NO;
     [self changeToStopStyle];
 }
 
-- (void)updateViewWithFinish
-{
-    self.topView.hidden = NO;
-    self.buttomLeftView.hidden=YES;
-    self.buttomCenterView.hidden=YES;
-    self.buttomRightView.hidden=YES;
-}
 
 - (void)changeToRecordStyle
 {
-    [self.recordBtn setImage:[UIImage imageNamed:@"on"] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.2 animations:^{
+        CGPoint center = self.recordBtn.center;
+        CGRect rect = self.recordBtn.frame;
+        rect.size = CGSizeMake(28, 28);
+        self.recordBtn.frame = rect;
+        self.recordBtn.layer.cornerRadius = 4;
+        self.recordBtn.center = center;
+    }];
 }
 
 - (void)changeToStopStyle
 {
-    [self.recordBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.2 animations:^{
+        CGPoint center = self.recordBtn.center;
+        CGRect rect = self.recordBtn.frame;
+        rect.size = CGSizeMake(52, 52);
+        self.recordBtn.frame = rect;
+        self.recordBtn.layer.cornerRadius = 26;
+        self.recordBtn.center = center;
+    }];
 }
+
 
 #pragma mark - action
 
 - (void)dismissVC
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(dismissVC)]) {
+        //代理MovieRecordController
         [self.delegate dismissVC];
     }
 }
+
+
 
 - (void)turnCameraAction
 {
@@ -172,19 +170,17 @@
 }
 
 
-
 //- (void)startRecord
 //{
 //    if (self.movieRecordModel.recordState == MovieRecordStateInit) {
 //        [self.movieRecordModel startRecord];
 //    } else if (self.movieRecordModel.recordState == MovieRecordStateRecording) {
-//        [self.movieRecordModel stopRecord];
-//    } else if (self.movieRecordModel.recordState == MovieRecordStatePause) {
 //        [self.movieRecordModel pauseRecord];
-//    } else{
-//
+//    } else if (self.movieRecordModel.recordState == MovieRecordStateFinish){
+//        [self.movieRecordModel stopRecord];
+//    }else if (self.movieRecordModel.recordState == MovieRecordStatePause) {
+//        [self.movieRecordModel stopRecord];
 //    }
-//
 //}
 
 
@@ -200,8 +196,11 @@
     
 }
 
+
 -(void)completeAction
 {
+    self.movieRecordModel.recordState = MovieRecordStateFinish;
+    [self.movieRecordModel stopRecord];
     //todo 提前结束录制 进入播放界面
 }
 
@@ -221,9 +220,11 @@
         [self updateViewWithRecording];
     } else if (recordState == MovieRecordStatePause) {
          [self updateViewWithPause];
+     
     } else  if (recordState == MovieRecordStateFinish) {
-        [self updateViewWithFinish];
+        
         if (self.delegate && [self.delegate respondsToSelector:@selector(recordFinishWithvideoUrl:)]) {
+            //代理MovieRecordController，push播放器
             [self.delegate recordFinishWithvideoUrl:self.movieRecordModel.videoUrl];
         }
     }
@@ -240,4 +241,4 @@
 @end
 
 
-
+    

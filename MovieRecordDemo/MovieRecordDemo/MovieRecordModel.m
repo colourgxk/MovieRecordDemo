@@ -49,10 +49,7 @@
 #pragma mark - load
 - (AVCaptureSession *)session
 {
-    // 录制5秒钟视频 高画质10M,压缩成中画质 0.5M
-    // 录制5秒钟视频 中画质0.5M,压缩成中画质 0.5M
-    // 录制5秒钟视频 低画质0.1M,压缩成中画质 0.1M
-    // 只有高分辨率的视频才是全屏的，如果想要自定义长宽比，就需要先录制高分辨率，再剪裁，如果录制低分辨率，剪裁的区域不好控制
+
     if (!_session) {
         _session = [[AVCaptureSession alloc] init];
         if ([_session canSetSessionPreset:AVCaptureSessionPresetHigh]) {//设置分辨率
@@ -75,6 +72,7 @@
 {
     if (_recordState != recordState) {
         _recordState = recordState;
+        //代理是MovieRecordView,调用updateRecordState，对初始，录制，中断，完成状态更新显示界面
         if (self.delegate && [self.delegate respondsToSelector:@selector(updateRecordState:)]) {
             [self.delegate updateRecordState:_recordState];
         }
@@ -124,6 +122,7 @@
                                                object:nil];
     [self clearFile];
     _recordTime = 0;
+    
     _recordState = MovieRecordStateInit;
     
 }
@@ -136,10 +135,10 @@
     // 1.2 创建视频输入源
     NSError *error=nil;
     self.videoInput= [[AVCaptureDeviceInput alloc] initWithDevice:videoCaptureDevice error:&error];
-    if (error) {
+    if (error){
            NSLog(@"取得设备输入对象时出错，错误原因：%@",error.localizedDescription);
            return;
-       }
+    }
     // 1.3 将视频输入源添加到会话
     if ([self.session canAddInput:self.videoInput]) {
         [self.session addInput:self.videoInput];
@@ -157,7 +156,7 @@
     if (error) {
            NSLog(@"取得设备输入对象时出错，错误原因：%@",error.localizedDescription);
            return;
-       }
+    }
     // 2.3 将音频输入源添加到会话
     if ([self.session canAddInput:self.audioInput]) {
         [self.session addInput:self.audioInput];
@@ -203,19 +202,6 @@
 }
 
 
--(void)changeDeviceProperty:(void(^)(AVCaptureDevice *captureDevice))propertyChange
-{
-    AVCaptureDevice *captureDevice = [self.videoInput device];
-    NSError *error;
-    //注意改变设备属性前一定要首先调用lockForConfiguration:调用完之后使用unlockForConfiguration方法解锁
-    if ([captureDevice lockForConfiguration:&error]) {
-        propertyChange(captureDevice);
-        [captureDevice unlockForConfiguration];
-    }else{
-        NSLog(@"设置设备属性过程发生错误，错误信息：%@",error.localizedDescription);
-    }
-}
-
 #pragma mark - public method
 //切换摄像头
 - (void)turnCameraAction
@@ -251,29 +237,32 @@
 
 - (void)startRecord
 {
+   
     [self writeDataTofile];
+    self.recordState=MovieRecordStateRecording;
 }
 
-//to do why?//to do why?//to do why?//to do why?//to do why?//to do why?
+
 -(void)pauseRecord
 {
     [self.FileOutput stopRecording];
-    [self.session stopRunning];
+    self.recordState=MovieRecordStatePause;
 }
 
 - (void)stopRecord
 {
+    //to do
     [self.FileOutput stopRecording];
     [self.session stopRunning];
     
-    //todo
     [self.timer invalidate];
     self.timer = nil;
 }
 
-///录制状态
+
 - (void)reset
 {
+    //录制状态初始化
     self.recordState = MovieRecordStateInit;
     _recordTime = 0;
     [self.session startRunning];
@@ -323,10 +312,10 @@
 }
 
 
-//to do
 - (void)refreshTimeProgress
 {
     _recordTime += TIMER_INTERVAL;
+    //代理是MovieRecordView，调用RecordProgressView的更新进度条
     if(self.delegate && [self.delegate respondsToSelector:@selector(updateRecordingProgress:)]) {
         
         //todo  todo
@@ -342,6 +331,7 @@
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL  fromConnections:(NSArray *)connections
 {
     self.recordState = MovieRecordStateRecording;
+    //每隔0.05刷新进度条
     self.timer = [NSTimer scheduledTimerWithTimeInterval:TIMER_INTERVAL target:self selector:@selector(refreshTimeProgress) userInfo:nil repeats:YES];
 }
 
@@ -354,6 +344,7 @@
 
 
 #pragma mark - notification
+//初始化捕捉会话
 - (void)enterBack
 {
     self.videoUrl = nil;
@@ -373,4 +364,5 @@
 
 
 @end
-
+    
+    

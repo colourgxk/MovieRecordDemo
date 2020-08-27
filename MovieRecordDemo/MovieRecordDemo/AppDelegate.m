@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "MovieRecordController.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +18,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //
-    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    MovieRecordController *viewController = [[MovieRecordController alloc] init];
+    UINavigationController *navigationController  = [[UINavigationController alloc]initWithRootViewController:viewController];
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
